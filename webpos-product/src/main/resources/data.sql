@@ -1,0 +1,16 @@
+INSERT INTO products (id, name, price, image) VALUES ('PD1', 'iPhone 15', 5999, '1.png');
+INSERT INTO products (id, name, price, image) VALUES ('PD2', 'iPhone 15 PLUS', 6999, '2.png');
+INSERT INTO products (id, name, price, image) VALUES ('PD3', 'iPhone 15 Pro', 7999, '3.png');
+INSERT INTO products (id, name, price, image) VALUES ('PD4', 'iPhone 15 Pro Max', 8999, '4.png');
+INSERT INTO products (id, name, price, image) VALUES ('PD5', 'iPad 10', 3999, '5.png');
+INSERT INTO products (id, name, price, image) VALUES ('PD6', 'iPad mini', 4999, '6.png');
+INSERT INTO products (id, name, price, image) VALUES ('PD7', 'iPad air', 5999, '7.png');
+INSERT INTO products (id, name, price, image) VALUES ('PD8', 'iPad Pro', 8999, '8.png');
+INSERT INTO products (id, name, price, image) VALUES ('PD9', 'MacBook Air', 8999, '9.png');
+INSERT INTO products (id, name, price, image) VALUES ('PD10', 'MacBook Pro', 12999, '10.png');
+INSERT INTO products (id, name, price, image) VALUES ('PD11', 'Apple Watch Series', 2999, '11.png');
+INSERT INTO products (id, name, price, image) VALUES ('PD12', 'Apple Watch SE', 1999, '12.png');
+INSERT INTO products (id, name, price, image) VALUES ('PD13', 'Apple Watch Ultra', 5999, '13.png');
+INSERT INTO products (id, name, price, image) VALUES ('PD14', 'AirPods', 999, '14.jpg');
+INSERT INTO products (id, name, price, image) VALUES ('PD15', 'AirPods Pro', 1999, '15.jpg');
+INSERT INTO products (id, name, price, image) VALUES ('PD16', 'AirPods Max', 3999, '16.jpg');

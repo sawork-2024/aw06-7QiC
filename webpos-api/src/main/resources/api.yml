@@ -1,0 +1,447 @@
+openapi: 3.0.3
+info:
+  title: MicroWebpos
+  version: 0.0.1-SNAPSHOT
+  license:
+    name: NJU
+servers:
+  - url: http://localhost:8080/api
+paths:
+  /carts:
+    get:
+      tags:
+        - carts
+      operationId: listCarts
+      summary: List all carts
+      description: Returns an array of carts.
+      responses:
+        200:
+          description: A paged array of carts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Cart"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      tags:
+        - cart
+      operationId: createCart
+      summary: Create a new cart
+      description: Creates a new cart and returns it.
+      responses:
+        201:
+          description: The cart was successfully added.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /carts/{cartId}:
+    get:
+      tags:
+        - cart
+      operationId: showCartById
+      summary: Info for a specific cart
+      description: Returns a single cart.
+      parameters:
+        - name: cartId
+          in: path
+          description: The id of the cart to retrieve.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        200:
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/Cart"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      tags:
+        - item
+      operationId: addItemToCart
+      summary: Add item to a cart
+      description: Adds a product to a cart and returns it.
+      parameters:
+        - name: cartId
+          in: path
+          description: The id of the cart to add the product to.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: Item to add to the cart
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ItemFields"
+        required: true
+      responses:
+        200:
+          description: Cart updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      tags:
+        - cart
+      operationId: deleteCart
+      summary: Delete a cart
+      description: Deletes a cart.
+      parameters:
+        - name: cartId
+          in: path
+          description: The id of the cart to delete.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        200:
+          description: Cart deleted
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/Cart"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /carts/{cartId}/{itemId}:
+    get:
+      tags:
+        - item
+      operationId: showItemOfCart
+      summary: Info for a specific item of a cart
+      description: Returns a single item.
+      parameters:
+        - name: cartId
+          in: path
+          description: The id of the cart to retrieve.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: itemId
+          in: path
+          description: The id of the item to retrieve.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        200:
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Item"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      tags:
+        - item
+      operationId: updateItemOfCart
+      summary: Update a item of a cart
+      description: Update a item of a cart.
+      parameters:
+        - name: cartId
+          in: path
+          description: The id of the cart to update.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: itemId
+          in: path
+          description: The id of the item to update.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: Item to update
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ItemFields"
+        required: true
+      responses:
+        200:
+          description: Cart updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      tags:
+        - item
+      operationId: deleteItemOfCart
+      summary: Delete a item of a cart
+      description: Delete a item of a cart.
+      parameters:
+        - name: cartId
+          in: path
+          description: The id of the cart to delete.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: itemId
+          in: path
+          description: The id of the item to delete.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        200:
+          description: Cart updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /carts/{cartId}/total:
+    get:
+      tags:
+        - cart
+      operationId: showTotal
+      summary: Total a cart
+      description: Total a cart and returns the value.
+      parameters:
+        - name: cartId
+          in: path
+          description: The id of the cart to total.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        200:
+          description: Cart total
+          content:
+            application/json: 
+              schema:
+                type: number
+                format: double
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /products:
+    get:
+      tags:
+        - products
+      operationId: listProducts
+      summary: List all products
+      description: Returns an array of products.
+      parameters: 
+        - name: name
+          in: query
+          description: Product name.
+          required: false
+          schema:
+            type: string
+      responses:
+        200:
+          description: A paged array of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /products/{productId}:
+    get:
+      tags:
+        - product
+      operationId: showProductById
+      summary: Info for a specific product
+      description: Returns a single product.
+      parameters:
+        - name: productId
+          in: path
+          description: The id of the product to retrieve.
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /counter/checkout:
+    get:
+      tags:
+        - counter
+      operationId: checkout
+      summary: Checkout the counter
+      description: Checkout the counter and returns the value.
+      requestBody:
+        description: The cart to checkout
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Cart"
+        required: true
+      responses:
+        200:
+          description: The total of the cart
+          content:
+            application/json:
+              schema:
+                type: number
+                format: double
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    Cart:
+      title: Cart
+      description: A cart.
+      type: object
+      properties:
+        items:
+          title: Items
+          description: The items of the cart.
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+        id: 
+          title: ID
+          description: The ID of the cart.
+          type: integer
+          format: int32
+          readOnly: true
+    Product:
+      title: Product fields
+      description: A product.
+      type: object
+      properties:
+        name:
+          title: Name
+          description: The name of the product.
+          type: string
+        price:
+          title: Price
+          description: The price of the product.
+          type: number
+          format: double
+        image:
+          title: Image
+          description: The path to image.
+          type: string
+        id:
+          title: ID
+          description: The ID of the product.
+          type: string
+      required:
+        - name
+        - price
+        - image
+        - id
+    ItemFields:
+      title: Item fields
+      description: Editable fields of an item.
+      type: object
+      properties:
+        product:
+          $ref: '#/components/schemas/Product'
+        amount:
+          title: Amount
+          description: The Amount of the item.
+          type: integer
+          format: int32
+      required:
+        - product
+        - amount
+    Item:
+      title: Item
+      description: An item.
+      allOf: 
+        - $ref: '#/components/schemas/ItemFields'
+        - type: object
+          properties: 
+            id: 
+              title: ID
+              description: The ID of the item.
+              type: integer
+              format: int32
+              readOnly: true
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
